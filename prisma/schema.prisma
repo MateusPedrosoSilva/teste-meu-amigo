@@ -20,4 +20,14 @@ model User {
   phone    String
   password String
   type     String
+  pets     Pet[]
+}
+
+model Pet {
+  id       Int    @id @default(autoincrement())
+  name     String
+  keeper   User   @relation(fields: [keeperId], references: [id])
+  keeperId Int
+  age      Int
+  race     String
 }

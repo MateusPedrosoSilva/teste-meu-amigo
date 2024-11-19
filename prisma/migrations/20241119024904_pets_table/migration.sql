@@ -1,0 +1,9 @@
+-- CreateTable
+CREATE TABLE "Pet" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
+    "keeperId" INTEGER NOT NULL,
+    "age" INTEGER NOT NULL,
+    "race" TEXT NOT NULL,
+    CONSTRAINT "Pet_keeperId_fkey" FOREIGN KEY ("keeperId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
