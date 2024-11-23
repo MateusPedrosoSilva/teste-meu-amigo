@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { Request, Response } from 'express';
-import { User } from './user.model';
+import { User } from './model/user.model';
 
 @Controller('api/v1/users')
 export class UserController {

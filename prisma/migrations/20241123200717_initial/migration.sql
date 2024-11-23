@@ -1,11 +1,16 @@
+-- CreateEnum
+CREATE TYPE "UserType" AS ENUM ('SUPPORTER', 'KEEPER');
+
 -- CreateTable
 CREATE TABLE "User" (
-    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "type" TEXT NOT NULL
+    "type" "UserType" NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
