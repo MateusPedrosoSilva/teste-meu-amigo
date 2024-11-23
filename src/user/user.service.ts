@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { User } from './user.model';
 import { PrismaService } from '../prisma.service';
 import { Injectable } from '@nestjs/common';
 
@@ -7,7 +7,8 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async getAllUsers(): Promise<User[]> {
-    return await this.prisma.user.findMany();
+    const users = await this.prisma.user.findMany();
+    return users;
   }
 
   async getUser(id: number): Promise<User> {
@@ -24,9 +25,6 @@ export class UserService {
       data: {
         name: data.name,
         email: data.email,
-        phone: data.phone,
-        password: data.password,
-        type: data.type,
       },
     });
   }

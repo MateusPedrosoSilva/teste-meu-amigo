@@ -22,7 +22,7 @@ export class UserController {
     @Req() request: Request,
     @Res() response: Response,
   ): Promise<any> {
-    const result = this.userService.getAllUsers();
+    const result = await this.userService.getAllUsers();
     return response.status(200).json({
       status: 'OK!',
       message: 'Successfully fetch data!',
@@ -30,14 +30,14 @@ export class UserController {
     });
   }
 
-  @Post(':id')
+  @Get(':id')
   async getUser(@Param('id') id: number): Promise<User | null> {
-    return this.userService.getUser(id);
+    return await this.userService.getUser(id);
   }
 
   @Post()
   async createUser(@Body() postData: User): Promise<User> {
-    return this.userService.createUser(postData);
+    return await this.userService.createUser(postData);
   }
 
   @Put(':id')
@@ -45,11 +45,11 @@ export class UserController {
     @Param('id') id: number,
     @Body() updateData: User,
   ): Promise<User> {
-    return this.userService.updateUser(id, updateData);
+    return await this.userService.updateUser(id, updateData);
   }
 
   @Delete(':id')
   async deleteUser(@Param('id') id: number): Promise<User> {
-    return this.userService.deleteUser(id);
+    return await this.userService.deleteUser(id);
   }
 }
