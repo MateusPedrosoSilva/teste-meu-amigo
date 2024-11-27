@@ -14,15 +14,15 @@ datasource db {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  name     String
-  email    String   @unique
-  phone    String
-  password String
-  type     UserType
-  // pets      Pet[]
-  // createdAt DateTime @default(now())
-  // updatedAt DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  phone     String
+  password  String
+  type      UserType
+  pets      Pet[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum UserType {
@@ -30,13 +30,13 @@ enum UserType {
   KEEPER
 }
 
-// model Pet {
-//   id        Int      @id @default(autoincrement())
-//   name      String
-//   keeper    User?    @relation(fields: [keeperId], references: [id])
-//   keeperId  Int?
-//   age       Int?
-//   race      String?
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
-// }
+model Pet {
+  id        Int      @id @default(autoincrement())
+  name      String
+  keeper    User?    @relation(fields: [keeperId], references: [id])
+  keeperId  Int?
+  age       Int?
+  race      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
