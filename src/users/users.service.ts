@@ -11,7 +11,7 @@ export class UsersService {
   }
 
   async findAll() {
-    return this.prismaService.user.findMany();
+    return this.prismaService.user.findMany({});
   }
 
   async findOne(id: number) {
