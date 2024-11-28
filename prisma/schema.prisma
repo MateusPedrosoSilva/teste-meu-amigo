@@ -14,16 +14,17 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  name      String
-  email     String     @unique
-  phone     String
-  password  String
-  type      UserType
-  pets      Pet[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  Campaing  Campaing[]
+  id           Int            @id @default(autoincrement())
+  name         String
+  email        String         @unique
+  phone        String
+  password     String
+  type         UserType
+  pets         Pet[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  Campaing     Campaing[]
+  Contribution Contribution[]
 }
 
 enum UserType {
@@ -43,11 +44,23 @@ model Pet {
 }
 
 model Campaing {
-  id          Int      @id @default(autoincrement())
-  title       String
-  description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  organizer   User     @relation(fields: [organizerId], references: [id])
-  organizerId Int
+  id           Int            @id @default(autoincrement())
+  title        String
+  description  String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  organizer    User           @relation(fields: [organizerId], references: [id])
+  organizerId  Int
+  Contribution Contribution[]
+}
+
+model Contribution {
+  id            Int      @id @default(autoincrement())
+  value         Float
+  contributor   User     @relation(fields: [contributorId], references: [id])
+  contributorId Int
+  campaing      Campaing @relation(fields: [campaingId], references: [id])
+  campaingId    Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
