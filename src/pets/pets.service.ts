@@ -1,28 +1,43 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { DatabaseService } from '../database/database.service';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class PetsService {
-  constructor(private readonly prismaService: DatabaseService) {}
+  constructor(
+    private readonly prismaService: DatabaseService,
+    private readonly usersService: UsersService,
+  ) {}
 
-  create(createPetDto: Prisma.PetCreateInput) {
-    return this.prismaService.pet.create({ data: createPetDto });
+  async create(createPetDto: Prisma.PetCreateInput) {
+    try {
+      const petCreated = await this.prismaService.pet.create({
+        data: createPetDto,
+      });
+      return petCreated;
+    } catch (error) {
+      console.log(error);
+      throw new BadRequestException('error creating pet');
+    }
   }
 
-  findAll() {
-    return this.prismaService.pet.findMany({});
+  async findAll() {
+    return await this.prismaService.pet.findMany({});
   }
 
-  findOne(id: number) {
-    return this.prismaService.pet.findUnique({ where: { id } });
+  async findOne(id: number) {
+    return await this.prismaService.pet.findUnique({ where: { id } });
   }
 
-  update(id: number, updatePetDto: Prisma.PetUpdateInput) {
-    return this.prismaService.pet.update({ where: { id }, data: updatePetDto });
+  async update(id: number, updatePetDto: Prisma.PetUpdateInput) {
+    return await this.prismaService.pet.update({
+      where: { id },
+      data: updatePetDto,
+    });
   }
 
-  remove(id: number) {
-    return this.prismaService.pet.delete({ where: { id } });
+  async remove(id: number) {
+    return await this.prismaService.pet.delete({ where: { id } });
   }
 }

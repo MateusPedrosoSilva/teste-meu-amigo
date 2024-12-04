@@ -35,8 +35,8 @@ enum UserType {
 model Pet {
   id        Int      @id @default(autoincrement())
   name      String
-  keeper    User?    @relation(fields: [keeperId], references: [id])
-  keeperId  Int?
+  keeper    User     @relation(fields: [keeperId], references: [id])
+  keeperId  Int
   age       Int?
   race      String?
   createdAt DateTime @default(now())
